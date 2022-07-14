@@ -1,7 +1,5 @@
 import io
 
-entrada = 'aabaaa'
-
 
 def le_entrada(caminho):
     """
@@ -15,8 +13,6 @@ def le_entrada(caminho):
         'estados_finais': {},
     }
 
-    estados = set()
-
     # Abre e separa o arquivo de entrada
     with io.open(caminho, 'r') as arquivo:
         bruto = arquivo.read().split('&')
@@ -25,18 +21,10 @@ def le_entrada(caminho):
     for indice, dado in enumerate(dados):
         dados[dado] = eval(bruto[indice])
 
-    # Obtém os estados do automato a partir da tabela de transição
-    for transicao in dados['tabela'].items():
-        estados.add(transicao[0][0])
-        estados.add(transicao[1])
-
-    # Salva os estados do automato
-    dados['estados'] = estados
-
     return dados
 
 
-def automato(tabela, entrada, estados, estado_inicial, estados_finais):
+def automato(tabela, entrada, estado_inicial, estados_finais):
     """
         Função que retorna o estado final do automato
     """
@@ -77,13 +65,12 @@ def automato(tabela, entrada, estados, estado_inicial, estados_finais):
 
 dados = le_entrada('entrada.txt')
 
-estados = dados['estados']
 estado_inicial = dados['estado_inicial']
 estados_finais = dados['estados_finais']
 tabela = dados['tabela']
 entrada = dados['entrada']
 
-resultado = automato(tabela, entrada, entrada, estado_inicial, estados_finais)
+resultado = automato(tabela, entrada, estado_inicial, estados_finais)
 
 # Imprime o resultado
 if resultado is None:
