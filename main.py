@@ -62,18 +62,23 @@ def automato(tabela, entrada, estado_inicial, estados_finais):
 
     return None
 
+def roda_automato(caminho):
+    dados = le_entrada(caminho)
 
-dados = le_entrada('entrada.txt')
+    estado_inicial = dados['estado_inicial']
+    estados_finais = dados['estados_finais']
+    tabela = dados['tabela']
+    entrada = dados['entrada']
 
-estado_inicial = dados['estado_inicial']
-estados_finais = dados['estados_finais']
-tabela = dados['tabela']
-entrada = dados['entrada']
+    resultado = automato(tabela, entrada, estado_inicial, estados_finais)
 
-resultado = automato(tabela, entrada, estado_inicial, estados_finais)
+    # Imprime o resultado
+    if resultado is None:
+        print('Palavra '+  entrada + ':' ,'não reconhecida')
+    elif resultado[1] == entrada:
+        print('Palavra '+  entrada + ':',' reconhecida no estado', resultado[0])
+    else:
+        print('Palavra ' + entrada + ':', 'lexema', resultado[1], 'reconhecido no estado', resultado[0])
 
-# Imprime o resultado
-if resultado is None:
-    print('Palavra não reconhecida')
-else:
-    print('Palavra', resultado[1], 'reconhecida no estado', resultado[0])
+roda_automato('entrada1.txt')
+roda_automato('entrada2.txt')
